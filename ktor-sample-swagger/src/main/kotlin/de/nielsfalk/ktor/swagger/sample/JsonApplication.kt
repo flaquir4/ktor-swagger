@@ -58,9 +58,7 @@ data class PetModel(val id: Int?, val name: String) {
     }
 }
 
-class PetsModel<T>(val pets: MutableList<T>, val string: String) {
-
-}
+class PetsModel<T>(val pets: MutableList<T>, val string: String)
 
 data class Model<T>(val elements: MutableList<T>)
 
@@ -81,7 +79,8 @@ val data = PetsModel(
     mutableListOf(
         PetModel(1, "max"),
         PetModel(2, "moritz")
-    ),"miau"
+    ),
+    "miau"
 )
 
 fun newId() = ((data.pets.map { it.id ?: 0 }.max()) ?: 0) + 1
