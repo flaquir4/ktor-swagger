@@ -58,15 +58,8 @@ data class PetModel(val id: Int?, val name: String) {
     }
 }
 
-data class PetsModel(val pets: MutableList<PetModel>) {
-    companion object {
-        val exampleModel = mapOf(
-            "pets" to listOf(
-                PetModel.exampleSpike,
-                PetModel.exampleRover
-            )
-        )
-    }
+class PetsModel<T>(val pets: MutableList<T>, val string: String) {
+
 }
 
 data class Model<T>(val elements: MutableList<T>)
@@ -88,7 +81,7 @@ val data = PetsModel(
     mutableListOf(
         PetModel(1, "max"),
         PetModel(2, "moritz")
-    )
+    ),"miau"
 )
 
 fun newId() = ((data.pets.map { it.id ?: 0 }.max()) ?: 0) + 1
@@ -177,7 +170,7 @@ internal fun run(port: Int, wait: Boolean = true): ApplicationEngine {
             }
         }
         routing {
-            get<pets>("all".responds(ok<PetsModel>(example("model", PetsModel.exampleModel)))) {
+            get<pets>("all".responds(ok<PetsModel<PetModel>>())) {
                 call.respond(data)
             }
             post<pets, PetModel>(

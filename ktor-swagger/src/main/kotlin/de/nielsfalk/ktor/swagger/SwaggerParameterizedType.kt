@@ -10,17 +10,9 @@ import java.lang.reflect.Type
  * @return [ParameterizedType]
  */
 internal fun parameterize(raw: Class<*>, vararg typeArguments: Type): ParameterizedType {
-    val useOwner: Type? = if (raw.enclosingClass == null) {
-        // no owner allowed for top-level
-        null
-    } else {
-        raw.enclosingClass
-    }
-    require(raw.typeParameters.size == typeArguments.size) {
-        "invalid number of type parameters specified: expected ${raw.typeParameters.size}, got ${typeArguments.size}"
-    }
+
     @Suppress("UNCHECKED_CAST")
-    return ParameterizedTypeImpl(raw, useOwner, typeArguments as Array<Type>)
+    return ParameterizedTypeImpl(raw, null, typeArguments as Array<Type>)
 }
 
 /**
