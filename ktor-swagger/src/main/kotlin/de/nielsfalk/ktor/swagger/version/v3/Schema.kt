@@ -33,6 +33,7 @@ typealias Headers = MutableMap<String, Any>
 typealias SecuritySchemes = MutableMap<String, Any>
 typealias Links = MutableMap<String, Any>
 typealias Callbacks = MutableMap<String, Any>
+typealias Security = MutableList<MutableMap<String, Any>>
 
 typealias Content = Map<String, MediaTypeObject>
 
@@ -43,6 +44,7 @@ class OpenApi : CommonBase {
     override val paths: Paths = mutableMapOf()
 
     val components: Components = Components()
+    val security: Security = mutableListOf()
 }
 
 class Components {
@@ -63,6 +65,8 @@ class Components {
     val links: Links = mutableMapOf()
 
     val callbacks: Callbacks = mutableMapOf()
+
+    val security: Security = mutableListOf()
 }
 
 class Response(
