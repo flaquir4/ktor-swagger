@@ -112,6 +112,11 @@ val petIdSchema = mapOf(
     "description" to "The identifier of the pet to be accessed"
 )
 
+val bearerSchema = mapOf(
+    "type" to "http",
+    "scheme" to "bearer"
+)
+
 @Group("shape operations")
 @Location("/shapes")
 class shapes
@@ -166,6 +171,8 @@ internal fun run(port: Int, wait: Boolean = true): ApplicationEngine {
                 components.schemas["size"] = sizeSchemaMap
                 components.schemas[petUuid] = petIdSchema
                 components.schemas["Rectangle"] = rectangleSchemaMap("#/components/schemas")
+                components.securitySchemes["bearerauth"] = bearerSchema
+                security.add(mutableMapOf("bearerauth" to listOf<String>()))
             }
         }
         routing {
